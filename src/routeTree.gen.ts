@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BusinessRouteImport } from './routes/business'
+import { Route as LandingRouteImport } from './routes/landing'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as MissionsRouteImport } from './routes/missions'
 import { Route as ProfileRouteImport } from './routes/profile'
@@ -18,6 +20,16 @@ import { Route as RewardsRouteImport } from './routes/rewards'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessRoute = BusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LandingRoute = LandingRouteImport.update({
+  id: '/landing',
+  path: '/landing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MapRoute = MapRouteImport.update({
@@ -43,6 +55,8 @@ const RewardsRoute = RewardsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/business': typeof BusinessRoute
+  '/landing': typeof LandingRoute
   '/map': typeof MapRoute
   '/missions': typeof MissionsRoute
   '/profile': typeof ProfileRoute
@@ -50,6 +64,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/business': typeof BusinessRoute
+  '/landing': typeof LandingRoute
   '/map': typeof MapRoute
   '/missions': typeof MissionsRoute
   '/profile': typeof ProfileRoute
@@ -58,6 +74,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/business': typeof BusinessRoute
+  '/landing': typeof LandingRoute
   '/map': typeof MapRoute
   '/missions': typeof MissionsRoute
   '/profile': typeof ProfileRoute
@@ -65,14 +83,38 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/map' | '/missions' | '/profile' | '/rewards'
+  fullPaths:
+    | '/'
+    | '/business'
+    | '/landing'
+    | '/map'
+    | '/missions'
+    | '/profile'
+    | '/rewards'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/map' | '/missions' | '/profile' | '/rewards'
-  id: '__root__' | '/' | '/map' | '/missions' | '/profile' | '/rewards'
+  to:
+    | '/'
+    | '/business'
+    | '/landing'
+    | '/map'
+    | '/missions'
+    | '/profile'
+    | '/rewards'
+  id:
+    | '__root__'
+    | '/'
+    | '/business'
+    | '/landing'
+    | '/map'
+    | '/missions'
+    | '/profile'
+    | '/rewards'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BusinessRoute: typeof BusinessRoute
+  LandingRoute: typeof LandingRoute
   MapRoute: typeof MapRoute
   MissionsRoute: typeof MissionsRoute
   ProfileRoute: typeof ProfileRoute
@@ -86,6 +128,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business': {
+      id: '/business'
+      path: '/business'
+      fullPath: '/business'
+      preLoaderRoute: typeof BusinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/landing': {
+      id: '/landing'
+      path: '/landing'
+      fullPath: '/landing'
+      preLoaderRoute: typeof LandingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/map': {
@@ -121,6 +177,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BusinessRoute: BusinessRoute,
+  LandingRoute: LandingRoute,
   MapRoute: MapRoute,
   MissionsRoute: MissionsRoute,
   ProfileRoute: ProfileRoute,
