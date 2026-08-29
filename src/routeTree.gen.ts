@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MapRouteImport } from './routes/map'
 import { Route as MissionsRouteImport } from './routes/missions'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as RewardsRouteImport } from './routes/rewards'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +30,53 @@ const MissionsRoute = MissionsRouteImport.update({
   path: '/missions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RewardsRoute = RewardsRouteImport.update({
+  id: '/rewards',
+  path: '/rewards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/missions': typeof MissionsRoute
+  '/profile': typeof ProfileRoute
+  '/rewards': typeof RewardsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/missions': typeof MissionsRoute
+  '/profile': typeof ProfileRoute
+  '/rewards': typeof RewardsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/map': typeof MapRoute
   '/missions': typeof MissionsRoute
+  '/profile': typeof ProfileRoute
+  '/rewards': typeof RewardsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/map' | '/missions'
+  fullPaths: '/' | '/map' | '/missions' | '/profile' | '/rewards'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/map' | '/missions'
-  id: '__root__' | '/' | '/map' | '/missions'
+  to: '/' | '/map' | '/missions' | '/profile' | '/rewards'
+  id: '__root__' | '/' | '/map' | '/missions' | '/profile' | '/rewards'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MapRoute: typeof MapRoute
   MissionsRoute: typeof MissionsRoute
+  ProfileRoute: typeof ProfileRoute
+  RewardsRoute: typeof RewardsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +102,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MissionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rewards': {
+      id: '/rewards'
+      path: '/rewards'
+      fullPath: '/rewards'
+      preLoaderRoute: typeof RewardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +123,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MapRoute: MapRoute,
   MissionsRoute: MissionsRoute,
+  ProfileRoute: ProfileRoute,
+  RewardsRoute: RewardsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
