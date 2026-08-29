@@ -135,7 +135,7 @@ export const venues: Venue[] = [
 ];
 
 export function venueById(id: string): Venue {
-  return venues.find((v) => v.id === id) ?? venues[0];
+  return venues.find((v) => v.id === id) ?? (venues[0] as Venue);
 }
 
 export const categoryMeta: Record<
